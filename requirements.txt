@@ -14,3 +14,4 @@ faker
 types-flask
 types-flask-sqlalchemy
 mypy
+pytest-cov
