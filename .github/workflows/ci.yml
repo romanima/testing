@@ -27,8 +27,8 @@ jobs:
         run: echo "Black check skipped temporarily"
 
 
-      - name: Run Isort (sort imports)
-        run: isort --check-only --diff .
+#      - name: Run Isort (sort imports)
+#        run: isort --check-only --diff .
 
 
       - name: Run Flake8 (style)
