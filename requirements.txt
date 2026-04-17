@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pytest
+flake8
+isort
+black
+mypy
+sqlalchemy
+pydantic
