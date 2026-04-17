@@ -7,3 +7,10 @@ black
 mypy
 sqlalchemy
 pydantic
+flask
+flask-sqlalchemy
+factory-boy
+faker
+types-flask
+types-flask-sqlalchemy
+mypy
