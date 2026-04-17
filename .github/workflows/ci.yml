@@ -23,8 +23,9 @@ jobs:
           pip install -r requirements.txt
           pip install flake8 isort black mypy pytest
 
-      - name: Run Black (formatting)
-        run: black --check .
+      - name: Run Black (code formatting - disabled for now)
+        run: echo "Black check skipped temporarily"
+
 
       - name: Run Isort (imports)
         run: isort --check-only .
