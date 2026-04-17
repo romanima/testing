@@ -2,7 +2,7 @@ from app import db
 from datetime import datetime
 
 
-class Client(db.Model): # type: ignore
+class Client(db.Model): # type:ignore
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     surname = db.Column(db.String(50), nullable=False)
@@ -10,7 +10,7 @@ class Client(db.Model): # type: ignore
     car_number = db.Column(db.String(10))
 
 
-class Parking(db.Model): # type: ignore
+class Parking(db.Model): # type:ignore
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(100), nullable=False)
     opened = db.Column(db.Boolean)
@@ -18,7 +18,7 @@ class Parking(db.Model): # type: ignore
     count_available_places = db.Column(db.Integer, nullable=False)
 
 
-class ClientParking(db.Model): # type: ignore
+class ClientParking(db.Model): # type:ignore
     id = db.Column(db.Integer, primary_key=True)
     client_id = db.Column(db.Integer, db.ForeignKey('client.id'))
     parking_id = db.Column(db.Integer, db.ForeignKey('parking.id'))
