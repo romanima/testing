@@ -10,10 +10,12 @@ multi_line_output = 3
 [tool.flake8]
 max-line-length = 88
 exclude =
-    .git,
-    __pycache__,
-    docs/source/conf.py,
-    old,
-    build,
-    dist
+venv/,
+__pycache__/,
+.git/,
+build/,
+dist/
+__pycache__,
+docs/source/conf.py,
+old/
 ignore = E203, E501, W503

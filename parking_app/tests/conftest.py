@@ -1,29 +1,41 @@
 import pytest
-from app import create_app, db
-from tests.factories import ClientFactory, ParkingFactory
+from app import create_app
+
 
 @pytest.fixture
 def app():
     app = create_app()
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    return app
+    app.config['WTF_CSRF_ENABLED'] = False
+
+    with app.app_context():
+        from app import db
+        db.create_all()
+
+    yield app
+
+    with app.app_context():
+        from app import db
+        db.drop_all()
+        db.session.remove()
+
 
 @pytest.fixture
 def client(app):
-    with app.test_client() as client:
-        with app.app_context():
-            db.drop_all()
-            db.create_all()  # Создаём таблицы ДО любых операций
-            # Передаём сессию фабрикам
-            ClientFactory._meta.sqlalchemy_session = db.session
-            ParkingFactory._meta.sqlalchemy_session = db.session
-        yield client
+    return app.test_client()
 
-@pytest.fixture(autouse=True)
-def db_session(app):
-    """Фикстура для управления сессией БД."""
+
+@pytest.fixture
+def db(app):
     with app.app_context():
-        yield db.session
-        db.session.rollback()  # Откат после каждого теста
+        from app import db as _db
+        yield _db
+
+
+@pytest.fixture
+def db_session(db):
+    """Фикстура для предоставления активной сессии БД."""
+    session = db.session
+    yield session
+    session.rollback()  # Откат изменений после теста
